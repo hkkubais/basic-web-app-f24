@@ -37,6 +37,25 @@ export default function QueryProcessor(query: string): string {
       return Math.max(...numbers).toString();
     }
   }
+  if (query.includes("What is") && query.includes("multiplied by")) {
+    const numbers = query.match(/\d+/g)?.map(Number);
+    if (numbers && numbers.length === 2) {
+      return (numbers[0] * numbers[1]).toString();
+    }
+  }
+
+  if (query.includes("Which of the following numbers is both a square and a cube:")) {
+    const numbers = query.match(/\d+/g)?.map(Number);
+    if (numbers && numbers.length > 0) {
+      const isSquareAndCube = (num: number) => {
+        const sqrt = Math.sqrt(num);
+        const cbrt = Math.cbrt(num);
+        return Number.isInteger(sqrt) && Number.isInteger(cbrt);
+      };
+      const result = numbers.filter(isSquareAndCube);
+      return result.length > 0 ? result.join(", ") : "None";
+    }
+  }
   return "";
   
   
