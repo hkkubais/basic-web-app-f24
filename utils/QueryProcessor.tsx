@@ -9,13 +9,13 @@ export default function QueryProcessor(query: string): string {
 
   if (query.toLowerCase().includes("andrew id")) {
     //TODO add your Andrew ID below
-    //TODO update the corresponding test case in __tests__
-    return ( "hkkubais-313" );
+    //TODO update the corresponding test case in _tests_
+    return ( "hkkubais" );
   }
-  return "";
 
   if (query.toLowerCase().includes("What is your name?")) {
-    return ( "hkkubais-313" );
+    return ("hkkubais-313");
   }
   return "";
+  
 }
