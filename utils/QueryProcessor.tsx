@@ -117,6 +117,15 @@ export default function QueryProcessor(query: string): string {
         return (numbers[0] * numbers[1]).toString();
       }
     }
+    if (query.includes("anagram of")) {
+      const [word, options] = query.match(/anagram of (\w+): (.+)/)?.slice(1, 3) || [];
+      if (word && options) {
+        const sortedWord = word.split('').sort().join('');
+        const optionsArray = options.split(',').map(opt => opt.trim());
+        const anagrams = optionsArray.filter(opt => opt.split('').sort().join('') === sortedWord);
+        return anagrams.length > 0 ? anagrams.join(", ") : "None";
+      }
+    }
   }
   return "";
   
