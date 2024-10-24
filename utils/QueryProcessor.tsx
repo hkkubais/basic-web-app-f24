@@ -43,7 +43,26 @@ export default function QueryProcessor(query: string): string {
       return (numbers[0] * numbers[1]).toString();
     }
   }
-
+  if (query.includes("What is") && query.toLowerCase().includes("minus")) {
+    const numbers = query.match(/\d+/g)?.map(Number);
+    if (numbers && numbers.length === 2) {
+      return (numbers[0] - numbers[1]).toString();
+    }
+  }
+  if (query.includes("Which of the following numbers are primes:")) {
+    const numbers = query.match(/\d+/g)?.map(Number);
+    if (numbers && numbers.length > 0) {
+      const isPrime = (num: number) => {
+        if (num <= 1) return false;
+        for (let i = 2; i <= Math.sqrt(num); i++) {
+          if (num % i === 0) return false;
+        }
+        return true;
+      };
+      const result = numbers.filter(isPrime);
+      return result.length > 0 ? result.join(", ") : "None";
+    }
+  }
   if (query.includes("Which of the following numbers is both a square and a cube:")) {
     const numbers = query.match(/\d+/g)?.map(Number);
     if (numbers && numbers.length > 0) {
