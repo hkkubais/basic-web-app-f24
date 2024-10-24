@@ -31,6 +31,7 @@ export default function QueryProcessor(query: string): string {
     }
   }
   
+  
 
   if (query.includes("Which of the following numbers is the largest:")) {
     const numbers = query.match(/\d+/g)?.map(Number);
@@ -82,6 +83,39 @@ export default function QueryProcessor(query: string): string {
       };
       const result = numbers.filter(isSquareAndCube);
       return result.length > 0 ? result.join(", ") : "None";
+    }
+    if (query.includes("What is") && query.toLowerCase().includes("plus") && query.toLowerCase().includes("multiplied by")) {
+      const parts = query.split(/plus|multiplied by/).map(str => str.trim());
+      const numbers = query.match(/\d+/g)?.map(Number);
+      
+      if (numbers && numbers.length === 3) {
+        // Handling multiplication before addition (BODMAS rule)
+        const result = numbers[0] + (numbers[1] * numbers[2]);
+        return result.toString();
+      }
+    }
+  
+    if (query.includes("What is") && query.includes("to the power of")) {
+      const numbers = query.match(/\d+/g)?.map(Number);
+      if (numbers && numbers.length === 2) {
+        const result = Math.pow(numbers[0], numbers[1]);
+        return result.toString();
+      }
+    }
+  
+    if (query.includes("What is") && query.toLowerCase().includes("plus")) {
+      const numbers = query.match(/\d+/g)?.map(Number);
+      if (numbers && numbers.length > 0) {
+        const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+        return sum.toString();
+      }
+    }
+  
+    if (query.includes("What is") && query.toLowerCase().includes("multiplied by")) {
+      const numbers = query.match(/\d+/g)?.map(Number);
+      if (numbers && numbers.length === 2) {
+        return (numbers[0] * numbers[1]).toString();
+      }
     }
   }
   return "";
