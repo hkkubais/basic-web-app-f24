@@ -43,12 +43,20 @@ export default function QueryProcessor(query: string): string {
       return (numbers[0] * numbers[1]).toString();
     }
   }
-  if (query.includes("What is") && query.toLowerCase().includes("minus")) {
+  if (query.includes("What is") && query.includes("minus")) {
     const numbers = query.match(/\d+/g)?.map(Number);
     if (numbers && numbers.length === 2) {
       return (numbers[0] - numbers[1]).toString();
     }
   }
+
+  if (query.includes("What is") && query.includes("to the power of")) {
+    const numbers = query.match(/\d+/g)?.map(Number);
+    if (numbers && numbers.length === 2) {
+      return Math.pow(numbers[0], numbers[1]).toString();
+    }
+  }
+
   if (query.includes("Which of the following numbers are primes:")) {
     const numbers = query.match(/\d+/g)?.map(Number);
     if (numbers && numbers.length > 0) {
