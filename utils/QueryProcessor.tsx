@@ -14,9 +14,7 @@ export default function QueryProcessor(query: string): string {
   }
   return "";
 
-  if (query.toLowerCase().includes("name")) {
-    //TODO add your Andrew ID below
-    //TODO update the corresponding test case in __tests__
+  if (query.toLowerCase().includes("What is your name?")) {
     return ( "hkkubais-313" );
   }
   return "";
